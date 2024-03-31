@@ -68,4 +68,5 @@ cast parse-bytes32-string 0x6d7950617373776f726400000000000000000000000000000000
 
 ```diff
 - @param newPassword The new password to set.
++ @param newPassword The new password to set.
 ```
