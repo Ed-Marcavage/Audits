@@ -108,6 +108,8 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @param playerIndex the index of the player to refund. You can find it externally by calling `getActivePlayerIndex`
     /// @dev This function will allow there to be blank spots in the array
     function refund(uint256 playerIndex) public {
+        // Inx array for the player address
+        // @audit MEV
         address playerAddress = players[playerIndex];
         require(
             playerAddress == msg.sender,
