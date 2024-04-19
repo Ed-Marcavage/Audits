@@ -1,0 +1,71 @@
+digraph G {
+  graph [ ratio = "auto", page = "100", compound =true ];
+subgraph "clusterPuppyRaffle" {
+  graph [ label = "PuppyRaffle", color = "lightgray", style = "filled", bgcolor = "lightgray" ];
+  "PuppyRaffle.<Constructor>" [ label = "<Constructor>", color = "green" ];
+  "PuppyRaffle.enterRaffle" [ label = "enterRaffle", color = "green" ];
+  "PuppyRaffle.refund" [ label = "refund", color = "green" ];
+  "PuppyRaffle.getActivePlayerIndex" [ label = "getActivePlayerIndex", color = "blue" ];
+  "PuppyRaffle.selectWinner" [ label = "selectWinner", color = "blue" ];
+  "PuppyRaffle.withdrawFees" [ label = "withdrawFees", color = "blue" ];
+  "PuppyRaffle.changeFeeAddress" [ label = "changeFeeAddress", color = "blue" ];
+  "PuppyRaffle._isActivePlayer" [ label = "_isActivePlayer", color = "white" ];
+  "PuppyRaffle._baseURI" [ label = "_baseURI" ];
+  "PuppyRaffle.tokenURI" [ label = "tokenURI", color = "green" ];
+  "PuppyRaffle.address" [ label = "address" ];
+  "PuppyRaffle.payable" [ label = "payable" ];
+  "PuppyRaffle.totalSupply" [ label = "totalSupply" ];
+  "PuppyRaffle._safeMint" [ label = "_safeMint" ];
+  "PuppyRaffle._exists" [ label = "_exists" ];
+  "PuppyRaffle.name" [ label = "name" ];
+}
+
+  "PuppyRaffle.refund";
+  "PuppyRaffle.address";
+  "PuppyRaffle.payable";
+  "PuppyRaffle.selectWinner";
+  "PuppyRaffle.totalSupply";
+  "PuppyRaffle._safeMint";
+  "PuppyRaffle.withdrawFees";
+  "PuppyRaffle.tokenURI";
+  "PuppyRaffle._exists";
+  "PuppyRaffle._baseURI";
+  "PuppyRaffle.name";
+  "PuppyRaffle.refund" -> "PuppyRaffle.address" [ color = "green" ];
+  "PuppyRaffle.refund" -> "PuppyRaffle.payable" [ color = "green" ];
+  "PuppyRaffle.refund" -> "PuppyRaffle.address" [ color = "green" ];
+  "PuppyRaffle.selectWinner" -> "PuppyRaffle.totalSupply" [ color = "green" ];
+  "PuppyRaffle.selectWinner" -> "PuppyRaffle._safeMint" [ color = "green" ];
+  "PuppyRaffle.withdrawFees" -> "PuppyRaffle.address" [ color = "green" ];
+  "PuppyRaffle.tokenURI" -> "PuppyRaffle._exists" [ color = "green" ];
+  "PuppyRaffle.tokenURI" -> "PuppyRaffle._baseURI" [ color = "green" ];
+  "PuppyRaffle.tokenURI" -> "PuppyRaffle.name" [ color = "green" ];
+
+
+rankdir=LR
+node [shape=plaintext]
+subgraph cluster_01 { 
+label = "Legend";
+key [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+  <tr><td align="right" port="i1">Internal Call</td></tr>
+  <tr><td align="right" port="i2">External Call</td></tr>
+  <tr><td align="right" port="i3">Defined Contract</td></tr>
+  <tr><td align="right" port="i4">Undefined Contract</td></tr>
+  </table>>]
+key2 [label=<<table border="0" cellpadding="2" cellspacing="0" cellborder="0">
+  <tr><td port="i1">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i2">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i3" bgcolor="lightgray">&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td port="i4">
+    <table border="1" cellborder="0" cellspacing="0" cellpadding="7" color="lightgray">
+      <tr>
+       <td></td>
+      </tr>
+     </table>
+  </td></tr>
+  </table>>]
+key:i1:e -> key2:i1:w [color="green"]
+key:i2:e -> key2:i2:w [color="orange"]
+}
+}
+

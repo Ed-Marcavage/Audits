@@ -147,6 +147,8 @@ contract PuppyRaffle is ERC721, Ownable {
     /// @dev we reset the active players array after the winner is selected
     /// @dev we send 80% of the funds to the winner, the other 20% goes to the feeAddress
     function selectWinner() external {
+        // Follows CEI?
+        // @audit - not true randomness as it is based on block data - deterministic
         require(
             block.timestamp >= raffleStartTime + raffleDuration,
             "PuppyRaffle: Raffle not over"
@@ -166,6 +168,7 @@ contract PuppyRaffle is ERC721, Ownable {
         uint256 tokenId = totalSupply();
 
         // We use a different RNG calculate from the winnerIndex to determine rarity
+        // @audit - not true randomness as it is based on block data - deterministic
         uint256 rarity = uint256(
             keccak256(abi.encodePacked(msg.sender, block.difficulty))
         ) % 100;
@@ -180,12 +183,14 @@ contract PuppyRaffle is ERC721, Ownable {
         delete players;
         raffleStartTime = block.timestamp;
         previousWinner = winner;
+        // @audit - can we reentrancy?
         (bool success, ) = winner.call{value: prizePool}("");
         require(success, "PuppyRaffle: Failed to send prize pool to winner");
         _safeMint(winner, tokenId);
     }
 
     /// @notice this function will withdraw the fees to the feeAddress
+    //slither-disable-next-line arbitrary-send-eth
     function withdrawFees() external {
         require(
             address(this).balance == uint256(totalFees),
@@ -193,6 +198,7 @@ contract PuppyRaffle is ERC721, Ownable {
         );
         uint256 feesToWithdraw = totalFees;
         totalFees = 0;
+        //sends eth to arbitrary user - not arbitrary - only owner
         (bool success, ) = feeAddress.call{value: feesToWithdraw}("");
         require(success, "PuppyRaffle: Failed to withdraw fees");
     }
